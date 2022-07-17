@@ -50,12 +50,15 @@ function Welcome(props) {
 2. [Class Component (Traditionally better than Function Component)](#class-component)
 
 ```javascript
+//! Class name must be Capitalized
 class Welcome extends React.Component {
   render() {
     return <h1>Hello, {this.props.name}</h1>;
   }
 }
 ```
+
+I sincerely appreciate the offer and want to express my gratitude for the chance to meet your team. But after careful consideration,
 
 **So whats the difference?**
 
@@ -101,7 +104,7 @@ return (
 );
 ```
 
-2. To render multiple class components, such as Hello. We have to use another component that contains multiple Hello components and render it.
+2. To render multiple class components. Create another component(app) and put every other components inside it. Then render it.
 
 ```javascript
 class App extends React.Component {
@@ -109,11 +112,24 @@ class App extends React.Component {
     return (
       <div>
         <Hello />
-        <Hello />
+        <NumPicker />
       </div>
     );
   }
 }
+
+ReactDOM.render(<App />, document.getElementById("root"));
+```
+
+**We still needs to import the Hello and NumPicker Scripts in HTML file.**(The order of script is important, index must be last script)
+index.html
+
+```html
+<div id="root"></div>
+...
+<script src="Hello.js" type="text/jsx"></script>
+<script src="NumPicker.js" type="text/jsx"></script>
+<script src="index.js" type="text/jsx"></script>
 ```
 
 ---
