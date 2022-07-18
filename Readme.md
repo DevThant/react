@@ -2,6 +2,7 @@
 
 1. [React Basic](#react-basic)
 2. [React Props](#react-props)
+3. [React Styling Basic](#react-styling-basic)
 
 ---
 
@@ -311,5 +312,80 @@ class Greeting extends React.Component {
   }
 }
 ```
+
+---
+
+---
+
+## **React Styling Basic**
+
+##### [Start](#)
+
+<br>
+
+1. Name classes with the same name as the component at the start. (Name convention is important)
+
+```css
+/* #1 */
+.Machine {
+  border: 2px solid black;
+  background-color: aquamarine;
+  text-align: center;
+}
+
+.Machine-jackpot {
+  background-color: green;
+  color: white;
+  font-size: 1.5em;
+  font-weight: bold;
+  padding: 5px;
+  text-align: center;
+}
+
+.Machine-lose {
+  background-color: #ff0000;
+  color: white;
+  font-size: 1.5em;
+  font-weight: bold;
+  padding: 5px;
+  text-align: center;
+}
+```
+
+2. Use **className** instead of **class**.
+3. For inline style - use style to add styles to the component. CamelCase the style properties.
+   > use double curly braces to add styles to the component.
+
+```javascript
+const slots = ["🍎", "🍒", "🍇"];
+
+// function to get random slot values
+function getRandomSlot() {
+  return slots[Math.floor(Math.random() * slots.length)];
+}
+
+class Machine extends React.Component {
+  render() {
+    const s1 = getRandomSlot();
+    const s2 = getRandomSlot();
+    const s3 = getRandomSlot();
+    const jackpot = s1 === s2 && s2 === s3;
+
+    return (
+      // #2
+      <div className="Machine">
+        <h1>Slot Machine</h1>
+        // #3
+        <h3 style={{ fontSize: "50px", backgroundColor: "black" }}>
+          {s1} | {s2} | {s3}
+        </h3>
+        <h3 className={jackpot ? "Machine-jackpot" : "Machine-lose"}>{jackpot ? "JACKPOT!!!" : "NOPE"}</h3>
+      </div>
+    );
+  }
+}
+```
+
+---
 
 ---
