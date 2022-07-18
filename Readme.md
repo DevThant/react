@@ -1,10 +1,11 @@
 # React Library
 
 1. [React Basic](#react-basic)
+2. [React Props](#react-props)
 
 ---
 
-### React Basic
+## React Basic
 
 ##### [Start](#)
 
@@ -130,6 +131,91 @@ index.html
 <script src="Hello.js" type="text/jsx"></script>
 <script src="NumPicker.js" type="text/jsx"></script>
 <script src="index.js" type="text/jsx"></script>
+```
+
+---
+
+## React Props
+
+##### [Start](#)
+
+<br>
+
+Props - Properties that we can pass from one component to another. (**Props are immutable**)
+
+- [Using props in components basic](#using-props-in-components-basic)
+- [How to pass number, arrays, boolean in props](#how-to-pass-number-arrays-boolean-in-props)
+
+---
+
+### **Using props in components (basic)**
+
+##### [Start](#) / [React Props](#react-props)
+
+<br>
+
+1. Defining App component
+
+   ```javascript
+   class App extends React.Component {
+     render() {
+       return (
+         <div>
+         // passing props as {p1: "Unas", p2: "Dahlia"}
+           <Wave p1="Unas" p2="Dahlia" />
+           <Wave p1="Long" p2="Berenice" bangs={3} />
+         </div>
+       );
+     }
+   }
+
+   ReactDOM.render(<App />, document.getElementById("root"));
+   ```
+
+2. Defining Wave.js component, and use the props that are passed from the App component
+
+   ```javascript
+   class Wave extends React.Component {
+     render() {
+       //! this.props.p1 = 'Dex'  // this will result in an error (props are immutable**)
+       const props = this.props;
+       const bangs = "!".repeat(props.bangs);
+       return (
+         <p>
+           {props.p1} waves at {props.p2} {bangs}
+         </p>
+       );
+     }
+   }
+   ```
+
+### **How to pass number, arrays, boolean in props**
+
+##### [Start](#) / [React Props](#react-props)
+
+<br>
+
+You can only use curly braces and quotes to pass props.
+
+index.js
+
+```javascript
+class App extends React.Component {
+  render() {
+    return (
+      <div>
+        <Wave
+          p1="Unas"
+          p2="Dahlia"
+          times={3}
+          array={[1, 2, 3, 4, 5]}
+          isFunny // or isFunny={true}
+        />
+        <Wave p1="Long" p2="Berenice" />
+      </div>
+    );
+  }
+}
 ```
 
 ---
