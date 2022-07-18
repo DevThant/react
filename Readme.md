@@ -145,6 +145,8 @@ Props - Properties that we can pass from one component to another. (**Props are 
 
 - [Using props in components basic](#using-props-in-components-basic)
 - [How to pass number, arrays, boolean in props](#how-to-pass-number-arrays-boolean-in-props)
+- [JSX loops](#jsx-loops)
+- [Default Props](#default-props)
 
 ---
 
@@ -213,6 +215,98 @@ class App extends React.Component {
         />
         <Wave p1="Long" p2="Berenice" />
       </div>
+    );
+  }
+}
+```
+
+---
+
+### **JSX loops**
+
+##### [Start](#) / [React Props](#react-props)
+
+  <br>
+
+```javascript
+class App extends React.Component {
+  render() {
+    return (
+      <div>
+        <Friend name="Dex" hobbies={["Driving", "Travelling", "Coding"]} />
+        <Friend name="John" hobbies={["Painting", "Podcast"]} />
+      </div>
+    );
+  }
+}
+
+ReactDOM.render(<App />, document.querySelector("#root"));
+```
+
+1. We can easily use array.map to loop through the array and render the elements.
+2. **Use curly braces inside the html tags to display the data.**
+
+```javascript
+class Friend extends React.Component {
+  render() {
+    const { name, hobbies } = this.props;
+    return (
+      <div>
+        <h1>{name}</h1>
+        <ul>
+          // #1
+          {hobbies.map((h) => (
+            // #2
+            <li>{h}</li>
+          ))}
+        </ul>
+      </div>
+    );
+  }
+}
+```
+
+---
+
+### **Default Props**
+
+##### [Start](#) / [React Props](#react-props)
+
+  <br>
+
+```javascript
+class App extends React.Component {
+  render() {
+    return (
+      <div>
+        <Greeting from="Dex" to="Sara" bangs={3} />
+        <Greeting to="Chief" bangs={5} /> // from will be "anonymous" by default
+        <Greeting to="Chris" /> // bangs will be 1 by default and from will be
+        "anonymous" by default
+      </div>
+    );
+  }
+}
+
+ReactDOM.render(<App />, document.querySelector("#root"));
+```
+
+1. Defining default props with static property.
+
+```javascript
+class Greeting extends React.Component {
+  // #1
+  static defaultProps = {
+    from: "Anonymous",
+    bangs: 1,
+  };
+  render() {
+    const { from, to, bangs } = this.props;
+    let totalBangs = "!".repeat(bangs);
+    return (
+      <h1>
+        {from} says hello to {to} {totalBangs}
+      </h1>
     );
   }
 }
