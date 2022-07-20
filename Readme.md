@@ -1,8 +1,33 @@
 # React Library
 
-1. [React Basic](#react-basic)
-2. [React Props](#react-props)
-3. [React Styling Basic](#react-styling-basic)
+1. [Core React Concept](#core-react-concept)
+1. [React Basic and Components](#react-basic)
+1. [React Props](#react-props)
+1. [React Styling Basic](#react-styling-basic)
+1. [React State **Important**](#react-state)
+
+---
+
+---
+
+## Core React Concept
+
+##### [Start](#)
+
+<br>
+
+**React app is made up of these 3 important core concepts:**
+
+1.  Component
+    - building blocks of React app
+    - components are reusable pieces of code that can be used to build a React app
+    - combines logic (JS) and presentation (JSX)
+2.  Props(properties)
+    - data that is passed to a component. Also, default props can be set in the component definition.
+    - props are read-only, they are not changed after being passed to a component. They are **immutable**.
+3.  State
+    - data that is specific to a component.
+    - data that changes over time.
 
 ---
 
@@ -389,3 +414,136 @@ class Machine extends React.Component {
 ---
 
 ---
+
+## **React State**
+
+##### [Start](#)
+
+##### [(1) **`Super`** in React State](#super-in-react-state), [(2) **`setState()`**](#setstate)
+
+<br>
+
+State is an object that is used to store the data of the component. (Key-value pairs)
+
+```javascript
+console.log(this.state);
+
+{
+  playerName: "Dex",
+  score: 100,
+}
+```
+
+State should be initialized **in** the **constructor** of the **component** (as soon as the component is created).
+
+> **`this`** keyword refers to the Component. **`super()`** calls the Component's constructor.
+
+```javascript
+class ClickCount extends Component {
+  // #
+  constructor(props) {
+    super(props);
+    this.state = {
+      numClicks = 0; // Put values we wants to track here..
+    }
+  }
+  render() {
+    return ( ...rest of component codes)
+  }
+}
+```
+
+**NOTE:** Never change the state directly. Use [`setState`](#setstate) to update the state.
+
+```javascript
+class ClickCount extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      numClicks = 0;
+    }
+    this.state.numClicks = 0; // NEVER DO THIS AND NEVER CHANGE THE STATE IN THE CONSTRUCTOR
+  }
+}
+```
+
+**\*Alternate Syntax for initializing state** ! This needs **bable** to work (create react app already has bable installed)
+
+```javascript
+class ClickCount extends Component {
+  // # alternate syntax
+ state = {
+      numClicks = 0; // Put values we wants to track here..
+    }
+  render() {
+    return ( ...rest of component codes)
+  }
+}
+
+// This won't work if you don't have babel installed
+```
+
+---
+
+### **`Super`** in React State
+
+##### [Start](#) / [React State](#react-state)
+
+<br>
+  
+We cannot use any of the Component's functionalities if we don't use the **super** keyword inside the constructor of our own component.
+<!-- prettier-ignore -->
+```javascript
+// Example Scenario - We recreate the Component class from react
+class Component {
+  constructor (){
+    console.log("Inside React Component Constructor");
+  }
+}
+// Our own component
+class ClickCount extends Component {
+  constructor (){
+    super(); // Without this, the constructor of Component will not be called. Will throw an error.
+    console.log("Inside Our Own Component Constructor");
+  }
+}
+```
+If we are using **props** inside the **constructor**. We have to pass in props to `super()`.
+```javascript
+class Demo extends Component {
+  constructor(props) {
+    super(props);
+    console.log(this.props); // { name: "Dex" }
+    this.state = {..some data} //
+  }
+}
+// Wihout passing props
+class Demo extends Component {
+  constructor(props) {
+    super();
+    console.log(this.props); // undefined
+}
+```
+Not passing props is not a problem at all if we are not planning to use any props inside our constructor
+  
+---
+
+### **`setState()`**
+
+##### [Start](#) / [React State](#react-state)
+
+<br>
+
+`this.setState()` is the built-in react method of changing a component state.
+
+```javascript
+this.setState({ playerName: "Dex", score: 0 }, [callback]); // callback is optional
+```
+
+- Can call in any instance method **except constructor**.
+- Takes an Object as an argument.
+- Patches only the state Object. (keys that you didn't specify don't change)
+- **Asynchronous!**
+  - Does not always update the state immediately.
+  - React decides when to change the state for performance reasons.
+- Component will **re-render** when their state changes.
