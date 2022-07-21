@@ -1,10 +1,11 @@
 # React Library
 
 1. [Core React Concept](#core-react-concept)
-1. [React Basic and Components](#react-basic)
-1. [React Props](#react-props)
-1. [React Styling Basic](#react-styling-basic)
-1. [React State **Important**](#react-state)
+2. [React Basic and Components](#react-basic)
+3. [React Props](#react-props)
+4. [React Styling Basic](#react-styling-basic)
+5. [React State **Important**](#react-state)
+6. [React Events](#react-events)
 
 ---
 
@@ -547,3 +548,82 @@ this.setState({ playerName: "Dex", score: 0 }, [callback]); // callback is optio
   - Does not always update the state immediately.
   - React decides when to change the state for performance reasons.
 - Component will **re-render** when their state changes.
+
+---
+
+---
+
+## **React Events**
+
+##### [Start](#)
+
+##### [Alternate Syntax](#alternate-syntax)
+
+<br>
+
+We'll start with a function on `onClick` event
+
+1. We need constructor() to set states of the component.
+2. Define a function that triggers on onClick event.
+3. Use the function on the element
+   > To call the fucntion we have to use this. Also if we call the function directly it will run immediately without us clicking.
+   <!-- prettier-ignore -->
+   ```javascript
+   // This will run immediately and change the state to click without clicking it.
+   return
+   <button onClick={this.handleClick()}>Click Event</button>
+   // This will only runs when we click
+   return
+   <button onClick={this.handleClick()}>Click Event</button>
+   ```
+4. To actually make the function `this.handleClick` works we have to bind the function to our current component.
+
+```javascript
+class Events extends Component {
+  // #1
+  constructor(props) {
+    super(props);
+    this.state = {
+      clicked: false,
+    };
+    // #4
+    this.handleClick = this.handleClick.bind(this)
+  }
+  // #2
+  handleClick(e) {
+    this.setState({ clicked: true });
+  }
+  render() {
+    return (
+      <div>
+        <!-- #3 -->
+        <button onClick={this.handleClick}>Click Event</button>
+      </div>
+    );
+  }
+}
+```
+
+---
+
+### **Alternate Syntax**
+
+Remember we need babel for these short syntaxs to work
+
+1. Short alt syntax for decalring states
+2. This automatically bind the function to the component
+
+```javascript
+class Events extends Component {
+  // #1
+  state = { clicked: false };
+}
+// #2
+handleClick = (e) => {
+  this.setState({ clicked: true });
+};
+```
+
+---
+
+---
