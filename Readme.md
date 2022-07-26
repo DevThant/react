@@ -6,6 +6,10 @@
 4. [React Styling Basic](#react-styling-basic)
 5. [React State **Important**](#react-state)
 6. [React Events](#react-events)
+7. State Patterns
+   - [Functional setState (using callback to update state)](#functional-setstate)
+   - [Mutating state the safe way](#mutating-state-the-safe-way)
+8.
 
 ---
 
@@ -627,3 +631,90 @@ handleClick = (e) => {
 ---
 
 ---
+
+### **Functional setState**
+
+##### [Start](#)
+
+<br>
+
+To update the state of the component, we use setState(). But this is not the pattern we want to use.
+
+> There are several factors that we need to consider. ( Colt-steele > react > 57 Updating existing state )
+
+```javascript
+class Score extends Component {
+  state = {
+    score: 0,
+  };
+  singleKill = (){
+    this.setState({ score: this.state.score + 1 });
+  }
+  render() {
+    ...
+  }
+}
+```
+
+**Instead**, we can use functions to update the state.
+
+```javascript
+class Score extends Component {
+  state = {
+    score: 0,
+  };
+  incrementScore(currentState){
+    return { score: currentState.score + 1 };
+  }
+  singleKill =() => {
+    this.setState(this.incrementScore);
+  }
+  doubleKill =() => {
+    this.setState(this.incrementScore);
+    this.setState(this.incrementScore);
+  }
+  render() {
+    ...
+  }
+}
+```
+
+---
+
+### **Mutating State the Safe Way**
+
+##### [Start](#)
+
+<br>
+
+Be extra careful when mutating array of objects.
+
+**Avoid Doing This**
+
+```javascript
+completeTodo = (id) => {
+  const todo = this.state.find((todo) => todo.id === id);
+  todo.completed = true; // mutating the state directly (never do this)
+
+  this.setState({ todos: this.state.todos });
+};
+```
+
+**DO this instead**
+
+1. Map the array of objects to a new array of objects.
+2. And then set the new array of objects to the state.
+
+```javascript
+completeTodo = (id) => {
+  // #1
+  const newTodos = this.state.todos.map((todo) => {
+    if (todo.id === id) {
+      return { ...todos, completed: true };
+    }
+    return todo;
+  });
+  // #2
+  this.setState({ todos: newTodos });
+};
+```
