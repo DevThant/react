@@ -656,7 +656,7 @@ class Score extends Component {
 }
 ```
 
-**Instead**, we can use functions to update the state.
+**Instead** of updating states directly, we can use functions to update the state.
 
 ```javascript
 class Score extends Component {
