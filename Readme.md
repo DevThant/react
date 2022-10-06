@@ -9,7 +9,7 @@
 7. State Patterns
    - [Functional setState (using callback to update state)](#functional-setstate)
    - [Mutating state the safe way](#mutating-state-the-safe-way)
-8.
+8. [Passing Methods to Child Components](#passing-methods-to-child-components)
 
 ---
 
@@ -718,3 +718,22 @@ completeTodo = (id) => {
   this.setState({ todos: newTodos });
 };
 ```
+
+---
+
+### **Passing Methods to Child Components**
+
+##### [Start](#) / app-007
+
+<br>
+
+- A very common pattern in React.
+- Why do this? : children are often not stateful, but need to tell parents to change state.
+
+`How data flows`
+
+- `A parent component defines a function`
+- `The function is passed as prop to to a child component`
+- `The child component invokes the prop`
+- `The parent component's function is called and state is changed`
+- `The parent component re-renders along with its childs`
