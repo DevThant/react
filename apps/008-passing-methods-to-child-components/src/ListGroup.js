@@ -18,13 +18,13 @@ class ListGroup extends Component{
     }
 
 remove(item){
-    console.log("Inside remover function")
+    console.log(`${item} was removed`)
     this.setState(st=>({
         lists: st.lists.filter(i => i!==item)
     }))
 }
     render(){
-        let items = this.state.lists.map(item => (<Item value={item} remove={this.remove} />))
+        let items = this.state.lists.map((item, index) => (<Item key={index} value={item} remove={this.remove} />))
         return(
             <div className='ListGroup' >
                 <h1>Passing Methods To Child Components</h1>

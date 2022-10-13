@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 class Item extends Component{
     constructor(props){
         super(props)
-        this.handler = this.handler.bind(this)
+        this.handleRemove = this.handleRemove.bind(this)
     }
 
     handleRemove(evt){
