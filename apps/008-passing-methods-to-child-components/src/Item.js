@@ -6,7 +6,7 @@ class Item extends Component{
         this.handler = this.handler.bind(this)
     }
 
-    handler(evt){
+    handleRemove(evt){
         this.props.remove(this.props.value)
     }
 
@@ -14,7 +14,7 @@ class Item extends Component{
         return(
         <li>
         {this.props.value}
-        <button onClick={this.handler}>
+        <button onClick={this.handleRemove}>
              X
         </button>
         </li>
